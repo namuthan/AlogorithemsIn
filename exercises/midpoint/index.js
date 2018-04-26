@@ -12,6 +12,24 @@
 //   l.insertLast('c')
 //   midpoint(l); // returns { data: 'b' }
 
-function midpoint(list) {}
+function midpoint_Easy(list) {
+
+  const size = list.size();
+  const middleIndex = size % 2 == 0 ? (size / 2 - 1) : Math.floor(size / 2);
+
+  return list.getAt(middleIndex);
+}
+
+// Another solution
+function midpoint(list) {
+  let slow = list.getFirst();
+  let fast = list.getFirst();
+
+  while(fast.next && fast.next.next) {
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+  return slow;
+}
 
 module.exports = midpoint;

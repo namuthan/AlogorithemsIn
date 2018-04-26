@@ -8,6 +8,47 @@
 // Example:
 //   fib(4) === 3
 
-function fib(n) {}
+
+// Memoization
+// store the arguments of each function call along
+// with the result. If the function is called again with the
+// same arguments, return the precomputed result, rather
+// than running the function again.
+
+
+function memoize(fn) {
+  const cache = {};
+
+  return function(...args) {
+    if (cache[args]) {
+      return cache[args];
+    }
+
+    const result = fn.apply(this, args);
+    cache[args] = result;
+    return result;
+  }
+}
+
+function slowFib(n) {
+
+  if(n < 2) {
+    return n;
+  }
+
+  return fib(n - 1) + fib(n - 2);
+}
+
+function fib_linear(n) {
+  const result = [0, 1];
+
+  for(let i = 2; i<=n; i++) {
+    result[i] = result[i - 1] + result[i - 2];
+  }
+
+  return result[result.length - 1];
+}
+
+const fib = memoize(slowFib);
 
 module.exports = fib;
